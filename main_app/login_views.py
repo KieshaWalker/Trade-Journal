@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+from main_app.models import Trade
 from .forms import TradeForm
 
 
@@ -55,5 +57,9 @@ def new_trade(request):
     # Render for both GET and POST (invalid)
     return render(request, 'new_trade.html', {"form": form})
 
-## save the trade and render landing
-
+# show the trades on the landing page
+@login_required
+def landing_page(request):
+    # Fetch trades for the logged-in user
+    trades = Trade.objects.filter(user=request.user)
+    return render(request, 'landing_page.html', {'trades': trades})

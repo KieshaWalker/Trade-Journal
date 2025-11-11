@@ -58,7 +58,6 @@ class Instrument(BaseModel):
 class Trade(BaseModel):
     tenant: TenantScoped
     audit: AuditMeta
-
     tradeId: ObjectIdStr
     brokerRef: Optional[str] = None
     instrument: Instrument

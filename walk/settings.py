@@ -26,15 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-CHANGE_ME_TO_A_SECURE_VALUE')
 
-# SECURITY WARNING: don't run with debupipg turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('1', 'true', 'yes')
 
 # allow vercel app domain
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '[::1]',  # IPv6 localhost
-]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://trading-app-wine-beta.vercel.app']
 
 
 # Application definition
