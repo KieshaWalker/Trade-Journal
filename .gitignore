@@ -1,0 +1,12 @@
+.vercel
+*.sqlite3
+__pycache__/
+*.pyc
+db.sqlite3
+*notes
+.env
+
+README_VERCEL.md
+
+# ignore docs file and notes file
+*docs

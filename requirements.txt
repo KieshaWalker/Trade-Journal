@@ -1,0 +1,6 @@
+Django==4.2.26
+djangorestframework==3.16.1
+pydantic==2.12.0
+pymongo==4.4.1
+python-dotenv==1.0.0
+

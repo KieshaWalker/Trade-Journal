@@ -1,0 +1,44 @@
+{% extends 'landing.html' %}
+{% block content %}
+
+<h2>Create Trade</h2>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<form method="post" action="{% url 'new_trade' %}">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div>
+        {{ form.symbol.label_tag }}<br>
+        {{ form.symbol }}<br>
+        {{ form.symbol.errors }}
+    </div>
+
+    <div>
+        {{ form.side.label_tag }}<br>
+        {{ form.side }}<br>
+        {{ form.side.errors }}
+    </div>
+
+    <div>
+        {{ form.qty.label_tag }}<br>
+        {{ form.qty }}<br>
+        {{ form.qty.errors }}
+    </div>
+
+    <div>
+        {{ form.price.label_tag }}<br>
+        {{ form.price }}<br>
+        {{ form.price.errors }}
+    </div>
+
+    <button type="submit">Submit Trade</button>
+</form>
+
+{% endblock %}

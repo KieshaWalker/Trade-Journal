@@ -1,0 +1,14 @@
+.section-1 {
+    background-color: #f0f8ff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+header {
+    background-color: #4682b4;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+

@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+</head>
+<body>
+    <main>
+    {% csrf_token %}
+    {% include 'nav.html' %}
+
+
+   {% if user.is_authenticated %}
+    <h1>Hello, {{ user.username }}</h1>
+    <p>Welcome to Trading Connect!</p>
+   {% endif %}
+
+{% block content %}
+<a href="/landing/new/"> add a new trade</a>
+{% endblock %} 
+</main>   
+<footer>
+    <p>&copy; 2026 Trading Connect</p>
+</footer>
+</body>
+</html>
