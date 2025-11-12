@@ -14,6 +14,10 @@
         {
             "src": "/(.*)",
             "dest": "api/asgi.py"
+        },
+        {
+            "src": "/api/(.*)",
+            "dest": "api/asgi.py"
         }
     ]
 }
