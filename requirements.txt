@@ -1,7 +1,7 @@
 Django==4.2.26
 djangorestframework==3.16.1
 pydantic==2.12.0
-pymongo==4.4.1
+pymongo==4.15.4
 python-dotenv==1.0.0
 django-cors-headers==4.3.0
 gunicorn==20.1.0
