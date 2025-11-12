@@ -3,6 +3,9 @@ from typing import Optional, List, Dict, Any, NewType
 from datetime import datetime, date, timezone
 from pydantic import BaseModel, Field, EmailStr
 
+from django.db import models
+from django.contrib.auth.models import User
+
 # Lazy MongoClient getter — don't import or connect at import time
 _mongo_client = None
 _mongo_client_class = None
@@ -24,6 +27,20 @@ def get_mongo_client(uri=None):
     return _mongo_client
 
 
+# Django Models
+class Trade(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    symbol = models.CharField(max_length=16)
+    side = models.CharField(max_length=4, choices=[('BUY', 'Buy'), ('SELL', 'Sell')])
+    qty = models.IntegerField()
+    price = models.DecimalField(max_digits=12, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.side} {self.qty} {self.symbol} @ {self.price}"
+
+
+# Pydantic Models (for API serialization and MongoDB)
 class ObjectIdStr(str):
     """String form of MongoDB ObjectId for transport."""
     @classmethod
@@ -72,7 +89,7 @@ class Instrument(BaseModel):
     expiry: date
 
 
-class Trade(BaseModel):
+class TradeSchema(BaseModel):
     tenant: TenantScoped
     audit: AuditMeta
     tradeId: ObjectIdStr
