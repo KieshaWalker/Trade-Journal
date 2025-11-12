@@ -12,9 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-import pymongo
-
-from django import db
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +46,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,9 +135,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Additional settings can be added below as needed.
 
 
-#MongoDB settings
-MONGODB_URI = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/')   
-
+# MongoDB settings (do not import pymongo at settings import time)
+# Importing database client libraries at module import can break deployment initialization
+MONGODB_URI = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/')
 MONGODB_DB_NAME = os.environ.get('MONGODB_DB_NAME', 'trading_app_db')
 
 # Django REST Framework Configuration

@@ -2,9 +2,22 @@
 from typing import Optional, List, Dict, Any, NewType
 from datetime import datetime, date, timezone
 from pydantic import BaseModel, Field, EmailStr
-from pymongo import MongoClient
 
-MongoClient()
+try:
+    from pymongo import MongoClient
+except Exception:
+    MongoClient = None
+
+# Lazy MongoClient getter — don't connect at import time
+_mongo_client = None
+
+def get_mongo_client(uri=None):
+    global _mongo_client
+    if _mongo_client is None and MongoClient is not None:
+        import os
+        uri = uri or os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/')
+        _mongo_client = MongoClient(uri)
+    return _mongo_client
 
 
 class ObjectIdStr(str):
