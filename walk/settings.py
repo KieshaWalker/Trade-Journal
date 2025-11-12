@@ -31,6 +31,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('1', 'true', 'yes')
 
 # allow vercel app domain
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,[::1]').split(',')
+# api/settings.py
 
 # Application definition
 
@@ -75,8 +76,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'walk.wsgi.application'
-
+WSGI_APPLICATION = ['walk.wsgi.application', 'api.wsgi.app']
+# api/settings.py
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

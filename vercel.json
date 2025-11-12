@@ -18,6 +18,11 @@
         {
             "src": "/api/(.*)",
             "dest": "api/asgi.py"
-        }
-    ]
+        },
+    {
+        "src": "/main_app/templates/(.*)",
+        "dest": "/static/main_app/templates/$1"
+    }
+    ]    
 }
+
