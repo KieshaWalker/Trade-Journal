@@ -1,28 +1,10 @@
 {
     "version": 2,
     "builds": [
-        {
-            "src": "api/asgi.py",
-            "use": "@vercel/python"
-        }
+        { "src": "walk/wsgi.py", "use": "@vercel/python" }
     ],
     "routes": [
-        {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "api/asgi.py"
-        },
-        {
-            "src": "/api/(.*)",
-            "dest": "api/asgi.py"
-        },
-    {
-        "src": "/main_app/templates/(.*)",
-        "dest": "/static/main_app/templates/$1"
-    }
+        { "src": "/(.*)", "dest": "walk/wsgi.py" }
     ]    
 }
 
