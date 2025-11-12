@@ -77,9 +77,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = ['walk.wsgi.application', 'api.wsgi.application']
+WSGI_APPLICATION = 'walk.wsgi.application'
 # api/settings.py
-CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
