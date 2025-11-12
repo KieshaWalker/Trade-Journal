@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-CHANGE_ME_TO_A
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('1', 'true', 'yes')
 
 # allow vercel app domain
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,[::1]').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,.vercel.app').split(',')
 # api/settings.py
 
 # Application definition
@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'main_app',
-
+    'corsheaders',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -76,9 +77,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = ['walk.wsgi.application', 'api.wsgi.app']
+WSGI_APPLICATION = ['walk.wsgi.application', 'api.wsgi.application']
 # api/settings.py
-
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
