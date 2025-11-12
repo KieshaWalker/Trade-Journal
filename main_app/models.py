@@ -24,7 +24,7 @@ def get_mongo_client(uri=None):
                 return None
         if _mongo_client_class is not None:
             import os
-            uri = uri or os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/')
+            uri = uri or os.environ.get('uri')
             _mongo_client = _mongo_client_class(uri)
     return _mongo_client
 
