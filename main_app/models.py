@@ -1,11 +1,11 @@
-
 from typing import Optional, List, Dict, Any, NewType
 from datetime import datetime, date, timezone
 from pydantic import BaseModel, Field, EmailStr
-
+import os
 from django.db import models
 from django.contrib.auth.models import User
-
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 # Lazy MongoClient getter — don't import or connect at import time
 _mongo_client = None
 _mongo_client_class = None
