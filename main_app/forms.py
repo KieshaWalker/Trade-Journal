@@ -6,7 +6,6 @@ except Exception:
 from django import forms
 from django.forms import ModelForm
 from .models import Trade
-from main_app.models import ObjectIdStr, TenantScoped, AuditMeta, Instrument
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100, required=True)
