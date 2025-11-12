@@ -5,14 +5,14 @@
       "use": "@vercel/python"
     },
     {
-      "src": "static/**/*",
+      "src": "staticfiles/**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
