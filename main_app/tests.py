@@ -20,7 +20,11 @@ async def main():
         movie = await movies.find_one(query)
         print(movie)
         await client.close()
+
     except Exception as e:
         raise Exception("Unable to find the document due to the following error: ", e)
+    
 # Run the async function
 asyncio.run(main())
+
+
