@@ -18,6 +18,5 @@
       "src": "/(.*)",
       "dest": "walk/wsgi.py"
     }
-  ],
-  "outputDirectory": "staticfiles"
+  ]
 }
