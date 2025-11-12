@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-CHANGE_ME_TO_A
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('1', 'true', 'yes')
 
 # allow vercel app domain
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.vercel.app/').split(',')
+ALLOWED_HOSTS = ('https://trade-journal-phi-livid.vercel.app/',)
 # api/settings.py
 
 # Application definition
