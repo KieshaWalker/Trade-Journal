@@ -30,8 +30,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-CHANGE_ME_TO_A
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('1', 'true', 'yes')
 
 # allow vercel app domain
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,[::1]').split(',')
-
+ALLOWED_HOSTS = ['https://trading-app-wine-beta.vercel.app/', 'localhost', '127.0.0.1', '[::1]']
 
 # Application definition
 
