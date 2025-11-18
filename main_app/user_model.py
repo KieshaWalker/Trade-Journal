@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from pydantic import BaseModel, Field, EmailStr
 from typing import Optional, Dict, Any
 from dotenv import load_dotenv
+
 # Load environment variables from .env file
 load_dotenv()
   
@@ -21,12 +22,16 @@ class UserSchema(BaseModel):
     orgId: PydanticObjectId
     email: EmailStr
     username: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
     hashed_password: str
     role: str = Field(pattern="^(admin|analyst|reader)$")
     mfaEnabled: bool = False
     preferences: Dict[str, Any] = {}
+    bio: Optional[str] = None
 
 class UserRepository(AbstractRepository[UserSchema]):
     class Meta:
         database_name = 'tradingApp'
-        collection_name = 'users'git
+        collection_name = 'users'
+    

@@ -24,14 +24,8 @@ def api_root(request):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    """ViewSet for User management."""
-    
-    queryset = DjangoUser.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = []  # Allow unauthenticated access for now
-    
-    def get_queryset(self):
-        # Optionally filter to current user
-        if self.request.user.is_authenticated:
-            return DjangoUser.objects.filter(id=self.request.user.id)
-        return DjangoUser.objects.none()
+    """API endpoint that allows users to be viewed or edited."""
+    queryset = DjangoUser.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer   
+
+

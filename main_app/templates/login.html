@@ -11,7 +11,6 @@
 </head>
 
 <body>
-</html>
 
 <div class="messages">
     {% for message in messages %}
@@ -25,50 +24,22 @@
     <h2>Login</h2>
     <form method="post" action="/login/">
         {% csrf_token %}
-        {{ form.non_field_errors }}
-        <div>
-            {{ form.username.label_tag }}<br>
-            {{ form.username }}<br>
-            {{ form.username.errors }}
-        </div>
-        <div>
-            {{ form.password.label_tag }}<br>
-            {{ form.password }}<br>
-            {{ form.password.errors }}
-        </div>
-        <button type="submit">Login</button>
+        {{ form.as_p }}
+        <input type="submit" value="Login">
     </form>
 </section>
 
-<section class="section-1">
+<section class="section-1" id="register-section">
     <h2>Register</h2>
-    <form method="post" action="/register/">
+    <form method="post" action="/register/" class="registration-form">
         {% csrf_token %}
-        {{ form.non_field_errors }}
-        <div>
-            {{ form.username.label_tag }}<br>
-            {{ form.username }}<br>
-            {{ form.username.errors }}
-        </div>
-        <div>
-            {{ form.email.label_tag }}<br>
-            {{ form.email }}<br>
-            {{ form.email.errors }}
-        </div>
-        <div>
-            {{ form.password.label_tag }}<br>
-            {{ form.password }}<br>
-            {{ form.password.errors }}
-        </div>
-        <div>
-            {{ form.confirm_password.label_tag }}<br>
-            {{ form.confirm_password }}<br>
-            {{ form.confirm_password.errors }}
-        </div>
-        <button type="submit">Register</button>
+        {{ registration_form.as_p }}
+        <input type="submit" value="Register">
     </form>
 </section>
+
 </main>
+
 <footer>
     <p>&copy; 2026 Trading Connect</p>
 </footer>
