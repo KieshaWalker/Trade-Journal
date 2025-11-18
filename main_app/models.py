@@ -7,27 +7,14 @@ from django.contrib.auth.models import User
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from pydantic_mongo import AbstractRepository, PydanticObjectId
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
+  
 
-# Lazy MongoClient getter — don't import or connect at import time
-_mongo_client = None
-_mongo_client_class = None
-
-def get_mongo_client(uri=None):
-    global _mongo_client, _mongo_client_class
-    if _mongo_client is None:
-        if _mongo_client_class is None:
-            try:
-                from pymongo import MongoClient as MC
-                _mongo_client_class = MC
-            except ImportError:
-                _mongo_client_class = None
-                return None
-        if _mongo_client_class is not None:
-            import os
-            uri = uri or os.environ.get('uri')
-            _mongo_client = _mongo_client_class(uri)
-    return _mongo_client
-
+uri = os.environ.get('uri')
+# Create a new client and connect to the server
+client = MongoClient(uri, server_api=ServerApi('1'))
 
 # Django Models
 class Trade(models.Model):
@@ -55,20 +42,7 @@ class AuditMeta(BaseModel):
 
 # --- Users and auth ---
 
-class UserSchema(BaseModel):
-    # MongoDB documents implicitly have an `_id` field. We model it explicitly as `id` in pydantic-mongo.
-    # The original models used fields like `userId`, `eventId` etc. We will map those to the `id` field
-    # which the repository pattern expects for the primary key.
-    id: PydanticObjectId = Field(alias="_id")
-    orgId: PydanticObjectId
-    email: EmailStr
-    role: str = Field(pattern="^(admin|analyst|reader)$")
-    mfaEnabled: bool = False
-    preferences: Dict[str, Any] = {}
 
-class UserRepository(AbstractRepository[UserSchema]):
-    class Meta:
-        collection_name = 'users'
 
 # --- Trading Journal ---
 

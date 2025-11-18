@@ -26,6 +26,10 @@ urlpatterns = [
     
     # add a trade
     path('landing/new/', login_views.new_trade, name='new_trade'),
+    
+
+    #register
+    path('register/', login_views.register_page, name='register_page'),
 
     ]
 

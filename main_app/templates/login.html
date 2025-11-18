@@ -12,6 +12,7 @@
 
 <body>
 </html>
+
 <div class="messages">
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">
@@ -19,29 +20,51 @@
     </div>
     {% endfor %}
 </div>
+
 <section class="section-1">
     <h2>Login</h2>
     <form method="post" action="/login/">
         {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.username.label_tag }}<br>
+            {{ form.username }}<br>
+            {{ form.username.errors }}
+        </div>
+        <div>
+            {{ form.password.label_tag }}<br>
+            {{ form.password }}<br>
+            {{ form.password.errors }}
+        </div>
         <button type="submit">Login</button>
     </form>
 </section>
+
 <section class="section-1">
     <h2>Register</h2>
     <form method="post" action="/register/">
         {% csrf_token %}
-        <label for="reg_username">Username:</label>
-        <input type="text" id="reg_username" name="username" required>
-        <br>
-        <label for="reg_password">Password:</label>
-        <input type="password" id="reg_password" name="password" required>
-        <br>
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.username.label_tag }}<br>
+            {{ form.username }}<br>
+            {{ form.username.errors }}
+        </div>
+        <div>
+            {{ form.email.label_tag }}<br>
+            {{ form.email }}<br>
+            {{ form.email.errors }}
+        </div>
+        <div>
+            {{ form.password.label_tag }}<br>
+            {{ form.password }}<br>
+            {{ form.password.errors }}
+        </div>
+        <div>
+            {{ form.confirm_password.label_tag }}<br>
+            {{ form.confirm_password }}<br>
+            {{ form.confirm_password.errors }}
+        </div>
         <button type="submit">Register</button>
     </form>
 </section>
