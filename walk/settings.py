@@ -85,10 +85,18 @@ CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'http://localhost:
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# MongoDB settings (do not import pymongo at settings import time)
+# Importing database client libraries at module import can break deployment initialization
+MONGODB_URI = os.environ.get('uri', 'mongodb://localhost:27017/')
+MONGODB_DB_NAME = os.environ.get('MONGODB_DB_NAME', 'tradingApp')
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': MONGODB_DB_NAME,
+        'CLIENT': {
+            'host': MONGODB_URI,
+        }
     }
 }
 
@@ -138,11 +146,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Additional settings can be added below as needed.
 
-
-# MongoDB settings (do not import pymongo at settings import time)
-# Importing database client libraries at module import can break deployment initialization
-MONGODB_URI = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/')
-MONGODB_DB_NAME = os.environ.get('MONGODB_DB_NAME', 'trading_app_db')
 
 # Django REST Framework Configuration
 REST_FRAMEWORK = {
