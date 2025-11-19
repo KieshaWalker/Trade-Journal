@@ -166,3 +166,7 @@ REST_FRAMEWORK = {
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
+
+# Login/Logout URLs
+LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/login/'
