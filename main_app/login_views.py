@@ -30,7 +30,7 @@ def login_page(request):
     else:
         form = LoginForm()
 
-    return render(request, 'login.html', {'form': form, 'registration_form': registration_form})
+    return render(request, 'landing.html', {'form': form, 'registration_form': registration_form})
 
 
 def logout_view(request):
@@ -88,4 +88,4 @@ def register_page(request):
         messages.error(request, 'Please correct the errors below.')
         return render(request, 'login.html', { 'registration_form': form})
 
-    return redirect('login_page')
+    return redirect('landing_page')
