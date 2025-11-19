@@ -1,4 +1,5 @@
-import os 
+import os
+from time import timezone 
 from django.contrib.auth.models import User
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -8,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from pydantic import BaseModel, Field, EmailStr
 from typing import Optional, Dict, Any
 from dotenv import load_dotenv
+from datetime import datetime, timezone
 
 # Load environment variables from .env file
 load_dotenv()
@@ -29,6 +31,8 @@ class UserSchema(BaseModel):
     mfaEnabled: bool = False
     preferences: Dict[str, Any] = {}
     bio: Optional[str] = None
+    date_joined_and_time_joined: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    last_login: Optional[str] = None
 
 class UserRepository(AbstractRepository[UserSchema]):
     class Meta:
