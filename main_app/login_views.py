@@ -25,7 +25,9 @@ def login_page(request):
                 request.session['user_id'] = str(user_data['_id'])
                 request.session['username'] = user_data['username']
                 messages.success(request, 'Login successful!')
+                print("Login successful for user:", user_data['username'])
                 return redirect('landing_page')
+            
             messages.error(request, 'Invalid username or password.')
     else:
         form = LoginForm()
