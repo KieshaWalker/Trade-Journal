@@ -16,30 +16,17 @@ uri = os.environ.get('uri')
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
 
-# Django Models
-class Trade(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    symbol = models.CharField(max_length=16)
-    side = models.CharField(max_length=4, choices=[('BUY', 'Buy'), ('SELL', 'Sell')])
-    qty = models.IntegerField()
-    price = models.DecimalField(max_digits=12, decimal_places=2)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.side} {self.qty} {self.symbol} @ {self.price}"
 
 
 # Replaced ObjectIdStr with PydanticObjectId
 class TenantScoped(BaseModel):
     orgId: PydanticObjectId = Field(description="Tenant/org scope")
     userId: Optional[PydanticObjectId] = Field(None, description="Actor within tenant")
-
 class AuditMeta(BaseModel):
     # MongoDB often manages creation timestamps, but we can keep this for explicit control.
     createdAt: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updatedAt: Optional[datetime] = None
     deletedAt: Optional[datetime] = None
-
 # --- Users and auth ---
 
 
@@ -52,6 +39,16 @@ class Instrument(BaseModel):
     strike: float
     expiry: date
 
+strategy_choices = {
+  'intraday support breakout','intraday resistance breakdown', 'daily support breakout', 'daily resistance breakdown',
+  '1 hr support breakout', '1 hr resistance breakdown', '4 hr support breakout', '4 hr resistance breakdown',
+}
+
+market_sentiment_choices = { 'fed talk hawkish', 'fed talk dovish', 'economic data strong', 'economic data weak',
+  'geopolitical tensions', 'market volatility high', 'market volatility low','economic stability', 'inflation concerns', 'jobs data positive', 'jobs data negative',
+  'tech earnings strong', 'tech earnings weak', 'overall trend- sideways', 'overall trend- bullish', 'overall trend- bearish',
+
+}
 class TradeSchema(BaseModel):
     # Mapping tradeId to the MongoDB document ID
     id: PydanticObjectId = Field(alias="_id")
@@ -59,14 +56,15 @@ class TradeSchema(BaseModel):
     audit: AuditMeta
     brokerRef: Optional[str] = None
     instrument: Instrument
-    side: str = Field(pattern="^(BUY|SELL)$")
+    side: str = Field(pattern="^(BUY|SELL|SHORT|COVER)$")
     qty: int
     price: float
     fees: float = 0.0
     openTs: Optional[datetime] = None
     closeTs: Optional[datetime] = None
     status: str = Field(pattern="^(OPEN|CLOSED|CANCELLED)$")
-    strategyTag: Optional[str] = None
+    strategyTag: List[str] = []
+    marketSentimentTag: List[str] = []  
     regimeTagIds: List[PydanticObjectId] = [] # Changed str to PydanticObjectId
     journalEntryIds: List[PydanticObjectId] = []
     screenshotIds: List[PydanticObjectId] = []

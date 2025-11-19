@@ -25,7 +25,6 @@ def login_page(request):
                 request.session['user_id'] = str(user_data['_id'])
                 request.session['username'] = user_data['username']
                 messages.success(request, 'Login successful!')
-                print("Login successful for user:", user_data['username'])
                 return redirect('landing_page')
             
             messages.error(request, 'Invalid username or password.')
@@ -46,20 +45,7 @@ def new_trade(request):
     if request.method == 'POST':
         form = TradeForm(request.POST)
         if form.is_valid():
-            trades_collection = mongo_client['tradingApp']['trades']
-
-            trade_doc = {
-                '_id': ObjectId(),
-                'userId': request.user.id,
-                'username': request.user.username,
-                'symbol': form.cleaned_data['symbol'],
-                'side': form.cleaned_data['side'],
-                'qty': form.cleaned_data['qty'],
-                'price': float(form.cleaned_data['price']),
-                'createdAt': datetime.utcnow(),
-            }
-
-            trades_collection.insert_one(trade_doc)
+            form.save_to_mongodb(request.user.id)
             messages.success(request, 'Trade saved.')
             return redirect('landing_page')
     else:
@@ -71,7 +57,7 @@ def new_trade(request):
 @login_required
 def landing_page(request):
     trades_collection = mongo_client['tradingApp']['trades']
-    user_trades = list(trades_collection.find({'userId': request.user.id}).sort('createdAt', -1))
+    user_trades = list(trades_collection.find({'tenant.userId': ObjectId(request.user.id)}).sort('audit.createdAt', -1))
     return render(request, 'landing_page.html', {'trades': user_trades})
 
 
