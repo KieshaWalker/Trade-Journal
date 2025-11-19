@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Connect - Login</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+ 
+</head>
+
+<body>
+
+<div class="messages" id="messages-container">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+
+<section class="section-1">
+    <h2>Login</h2>
+    <form method="post" action="/login/">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Login">
+    </form>
+</section>
+
+<section class="section-1" id="register-section">
+    <h2>Register</h2>
+    <div class="info-box">
+        <p>New to Trading Connect? Register now to start tracking your trades and improving your strategies!</p>
+    
+    <form method="post" action="/register/" class="registration-form">
+        {% csrf_token %}
+        {{ registration_form.as_p }}
+        <input type="submit" value="Register">
+    </form>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Trading Connect</p>
+</footer>
+
+</body>
+
+</html>

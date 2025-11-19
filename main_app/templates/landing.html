@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="landing-html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+<link rel="stylesheet" href="{% static 'css/global.css' %}">
+</head>
+
+<body class ="landing-body">
+    <main class="landing-shell">
+    {% csrf_token %}
+    {% include 'nav.html' %}
+
+
+   {% if user.is_authenticated %}
+    <h1 class="landing" id="landing">Hello, {{ user.username }}</h1>
+    <p>Welcome to Trading Connect!</p>
+   {% endif %}
+
+{% block content %}
+<a href="/landing/new/"> add a new trade</a>
+{% endblock %} 
+</main>   
+<footer>
+    <p>&copy; 2026 Trading Connect</p>
+</footer>
+</body>
+</html>
