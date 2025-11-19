@@ -164,4 +164,5 @@ REST_FRAMEWORK = {
 
 # delete cookies after logout
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
