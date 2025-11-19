@@ -52,7 +52,8 @@ class RegistrationForm(forms.Form):
             role="analyst"
         )
 
-        return user_repo.save(user_data)
+        user_repo.save(user_data)
+        return user_data
 
 
 
